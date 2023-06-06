@@ -64,11 +64,12 @@ class JitsiViewController: UIViewController {
         self.jitsiMeetView = jitsiMeetView
         let options = JitsiMeetConferenceOptions.fromBuilder { (builder) in
 //            builder.welcomePageEnabled = true
-        
+     
             builder.room = self.roomName
             builder.serverURL = self.serverUrl
             builder.setSubject(self.subject ?? "")
             builder.userInfo = self.jistiMeetUserInfo
+            builder.setFeatureFlag("welcomepage.enabled", withValue: false)
             builder.setAudioMuted(self.audioMuted ?? false)
             builder.setAudioOnly(self.audioOnly ?? false)
             builder.setVideoMuted(self.videoMuted ?? false)
