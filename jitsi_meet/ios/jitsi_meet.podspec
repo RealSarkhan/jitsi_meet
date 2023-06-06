@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'jitsi_meet'
-  s.version          = '0.0.1'
+  s.version          = '0.0.2'
   s.summary          = 'Jitsi Meet Plugin'
   s.description      = <<-DESC
 Jitsi Meet Plugin
@@ -15,8 +15,10 @@ Jitsi Meet Plugin
   s.source           = { :path => '.' }
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
-  s.dependency 'JitsiMeetSDK', '3.3.0'
-  s.platform = :ios, '11.0'
+  s.dependency 'JitsiMeetSDK', '8.1.2'
+  s.platform = :ios, '12.0'
+  s.ios.deployment_target = '12.0'
+  
 
   # Flutter.framework does not contain a i386 slice. Only x86_64 simulators are supported.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'VALID_ARCHS[sdk=iphonesimulator*]' => 'x86_64' }
