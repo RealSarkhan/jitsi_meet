@@ -32,9 +32,12 @@ class JitsiViewController: UIViewController {
     }
     
     @objc func closeButtonClicked(sender : UIButton){
+        jitsiMeetView?.leave()
         cleanUp();
+        
         self.dismiss(animated: true, completion: nil)
     }
+    
     
     override func viewDidLoad() {
         
@@ -63,13 +66,10 @@ class JitsiViewController: UIViewController {
         jitsiMeetView.delegate = self
         self.jitsiMeetView = jitsiMeetView
         let options = JitsiMeetConferenceOptions.fromBuilder { (builder) in
-//            builder.welcomePageEnabled = true
-     
             builder.room = self.roomName
             builder.serverURL = self.serverUrl
             builder.setSubject(self.subject ?? "")
             builder.userInfo = self.jistiMeetUserInfo
-            builder.setFeatureFlag("welcomepage.enabled", withValue: false)
             builder.setAudioMuted(self.audioMuted ?? false)
             builder.setAudioOnly(self.audioOnly ?? false)
             builder.setVideoMuted(self.videoMuted ?? false)
@@ -99,9 +99,11 @@ class JitsiViewController: UIViewController {
     }
     
     fileprivate func cleanUp() {
+        jitsiMeetView?.leave()
         jitsiMeetView?.removeFromSuperview()
         jitsiMeetView = nil
         pipViewCoordinator = nil
+        
         //self.dismiss(animated: true, completion: nil)
     }
 }
@@ -121,6 +123,7 @@ extension JitsiViewController: JitsiMeetViewDelegate {
         mutatedData?.updateValue("onConferenceJoined", forKey: "event")
         self.eventSink?(mutatedData)
     }
+    
     
     func conferenceTerminated(_ data: [AnyHashable : Any]!) {
         //        print("CONFERENCE TERMINATED")
@@ -146,6 +149,7 @@ extension JitsiViewController: JitsiMeetViewDelegate {
             self.pipViewCoordinator?.enterPictureInPicture()
         }
     }
+    
     
     func exitPictureInPicture() {
         //        print("CONFERENCE PIP OUT")

@@ -34,11 +34,6 @@ class _MeetingState extends State<Meeting> {
   @override
   void initState() {
     super.initState();
-    JitsiMeet.addListener(JitsiMeetingListener(
-        onConferenceWillJoin: _onConferenceWillJoin,
-        onConferenceJoined: _onConferenceJoined,
-        onConferenceTerminated: _onConferenceTerminated,
-        onError: _onError));
   }
 
   @override
@@ -190,6 +185,11 @@ class _MeetingState extends State<Meeting> {
             width: double.maxFinite,
             child: ElevatedButton(
               onPressed: () {
+                JitsiMeet.addListener(JitsiMeetingListener(
+                    onConferenceWillJoin: _onConferenceWillJoin,
+                    onConferenceJoined: _onConferenceJoined,
+                    onConferenceTerminated: _onConferenceTerminated,
+                    onError: _onError));
                 _joinMeeting();
               },
               child: Text(
